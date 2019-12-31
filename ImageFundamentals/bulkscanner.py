@@ -29,10 +29,10 @@ def scanImage(image):
 
 	# show the original image and the edge detected image
 	print("STEP 1: Edge Detection")
-	cv2.imshow("Image", image)
-	cv2.imshow("Edged", edged)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
+#	cv2.imshow("Image", image)
+#	cv2.imshow("Edged", edged)
+#	cv2.waitKey(0)
+#	cv2.destroyAllWindows()
 
 	# find the contours in the edged image, keeping only the
 	# largest ones, and initialize the screen contour
@@ -55,9 +55,9 @@ def scanImage(image):
 	# show the contour (outline) of the piece of paper
 	print("STEP 2: Find contours of paper")
 	cv2.drawContours(image, [screenCnt], -1, (0, 255, 0), 2)
-	cv2.imshow("Outline", image)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
+#	cv2.imshow("Outline", image)
+#	cv2.waitKey(0)
+#	cv2.destroyAllWindows()
 
 	# apply the four point transform to obtain a top-down
 	# view of the original image
@@ -71,9 +71,10 @@ def scanImage(image):
 
 	# show the original and scanned images
 	print("STEP 3: Apply perspective transform")
-	cv2.imshow("Original", imutils.resize(orig, height = 650))
-	cv2.imshow("Scanned", imutils.resize(warped, height = 650))
-	cv2.waitKey(0)
+#	cv2.imshow("Original", imutils.resize(orig, height = 650))
+#	cv2.imshow("Scanned", imutils.resize(warped, height = 650))
+#	cv2.waitKey(0)
+	return warped
 
 
 # construct the argument parser and parse the arguments
@@ -81,4 +82,14 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required = True,
 	help = "Path to the image to be scanned")
 args = vars(ap.parse_args())
-scanImage(cv2.imread(args["image"]))
+for dirName, subdirList, fileList in os.walk(args["image"]):
+	counter = 1
+	print(fileList)
+	for fileName in fileList:
+		filepath = os.path.join(dirName, fileName)
+		if fileName is None:
+			continue
+		print("Here is fileName : " + filepath)	
+		out = scanImage(cv2.imread(filepath))
+		cv2.imwrite(os.path.join("data/scanneroutput", fileName) , out)
+		counter = counter + 1 
