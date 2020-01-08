@@ -86,6 +86,8 @@ for dirName, subdirList, fileList in os.walk(args["image"]):
 	counter = 1
 	print(fileList)
 	for fileName in fileList:
+		if fileName == ".DS_Store":
+			continue
 		filepath = os.path.join(dirName, fileName)
 		if fileName is None:
 			continue
