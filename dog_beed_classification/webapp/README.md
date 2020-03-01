@@ -1,2 +1,2 @@
 # ner
-Named Entity Recognition
+DOG Breed Classification Web Application
