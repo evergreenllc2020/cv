@@ -73,10 +73,10 @@ def load_paired_img_wrd(folder, word_vectors, use_word_vectors=True):
     return img_data, np.array(labels_list), paths_list
 
 def displayImagebyPath(img_path):
-    fig, ax = plt.subplots(1,1, figsize=(50,50))
+    fig, ax = plt.subplots(1,1, figsize=(5,5))
     img_Counter=0;
-    ax[img_Counter].set_title(img_path)
-    ax[img_Counter].imshow(load_img(img_path, target_size=(224, 224)))
+    ax.set_title(img_path)
+    ax.imshow(load_img(img_path, target_size=(224, 224)))
 
 
 def displayImages(results):
